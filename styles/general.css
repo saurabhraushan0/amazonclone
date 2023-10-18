@@ -1,0 +1,13 @@
+body{
+  font-family: roboto,arial;
+  margin: 0;
+  height: 2000px;
+  padding: 10px 50px;
+}
+p{
+  margin: 0px;
+}
+
+.body{
+  padding:0;
+}
