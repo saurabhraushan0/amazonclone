@@ -86,11 +86,13 @@ main{
   color: #017cb6;
   margin-left: 3px;
   margin-right: 3px;
+  cursor: pointer;
 }
 
 .delete{
   color: #017cb6;
   margin-left: 3px;
+  cursor: pointer;
 }
 
 .choose-option{

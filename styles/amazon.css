@@ -51,10 +51,22 @@
   margin-right: 4px;
 }
 .added span{
-  color: rgb(6, 125, 98);;
+  color: rgb(6, 125, 98);
 }
 @media (min-width:800px) {
   .middle-section{
     margin-left:60px;
   }
+}
+.cart{
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+  position: relative;
+}
+.cart-quantity{
+  position: absolute;
+  left:20px;
+  font-size: 1000px;
+  color: blue;
 }

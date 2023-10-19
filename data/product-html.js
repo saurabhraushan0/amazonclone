@@ -1,3 +1,5 @@
+import { products } from "./products.js";
+import { cart } from "./cart1.js";
 let productHTML='';
 products.forEach((product)=>{
   productHTML+=`<div class="product-container">
@@ -31,10 +33,45 @@ products.forEach((product)=>{
   <button class="add" data-product-id="${product.id}">Add to cart </button>
 </div>`;
 })
-
 document.querySelector('.main-grid').innerHTML=productHTML;
+function cartquantity(){
+  let quantity=0;
+  cart.forEach((items)=>{
+  quantity+=items.quantity;
+  })
+  document.querySelector('.cart-quantity').innerHTML=quantity;
+}
+function saveToStorage(){
+  localStorage.setItem('cart',JSON.stringify(cart));
+}
+cartquantity();
+
+
 document.querySelectorAll('.add').forEach((button)=>{
-  button.addEventListener('onclick',()=>{
-    console.log('added to cart');
+  button.addEventListener('click',()=>{
+    const id=button.dataset.productId;
+    
+    let item;
+    cart.forEach((items)=>{
+         if(id===items.id){
+          item=items;
+         }
+    })
+    if(item){
+      item.quantity++;
+    }
+    else{
+      let product_item;
+      products.forEach((product)=>{
+        if(id===product.id){
+          product_item=product;
+        }
+      })
+      cart.push({id:id,quantity:1,image:`${product_item.image}`,name:`${product_item.name}`,priceCents:`${product_item.priceCents}`});
+    }
+    saveToStorage();
+    cartquantity();
+    console.log(cart);
   })
 })
+
