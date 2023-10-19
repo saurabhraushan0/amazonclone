@@ -28,8 +28,13 @@ products.forEach((product)=>{
     <img src="checkmark.png" alt="">
     <span>Added</span>
   </div>
-  <button class="add">Add to cart </button>
+  <button class="add" data-product-id="${product.id}">Add to cart </button>
 </div>`;
 })
 
 document.querySelector('.main-grid').innerHTML=productHTML;
+document.querySelectorAll('.add').forEach((button)=>{
+  button.addEventListener('onclick',()=>{
+    console.log('added to cart');
+  })
+})

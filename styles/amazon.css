@@ -38,6 +38,7 @@
   padding: 8px 50px;
   border-radius: 20px;
   border: none;
+  cursor: pointer;
 }
 
 .added{
