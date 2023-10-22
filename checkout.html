@@ -16,7 +16,7 @@
       <a href="amazon.html"><img src="amazon-logo.png" alt=""></a>
       
     </div>
-    <div class="checkout-label">Checkout(<span class="checkout-product-quantity">8 items </span>)</div>
+    <div class="checkout-label">Checkout(<span class="checkout-product-quantity js-cart-quantity">8 </span><span class="">items </span>)</div>
     <div class="checkout-lock-icon"><img src="checkout-lock-icon.png" alt=""></div>
   </div>
   <main>
@@ -31,12 +31,12 @@
           Order Summary
         </div>
         <div class="total-items-price">
-          <div class="total-items">Items(8):</div>
+          <div class="total-items">Items(<span class="checkout-product-quantity">8</span>):</div>
           <div class="total-price">$78.47</div>
         </div>
         <div class="shipping-handling-price">
           <div>shipping & handling</div>
-          <div>$0.00</div>
+          <div class="shipping-price1">$0.00</div>
         </div>
         <div class="total-before-tax">
           <div>Total before tax:</div>
@@ -44,11 +44,11 @@
         </div>
         <div class="total-tax">
           <div>Estimated tax(10%):</div>
-          <div>$7.85</div>
+          <div class="estimated-tax">$7.85</div>
         </div>
         <div class="order-total">
           <div>Order total:</div>
-          <div>$86.32</div>
+          <div class="order-total-price">$86.32</div>
         </div>
         <div>Use PayPal <input type="checkbox"> </div>
         <div class="place-order">
@@ -57,7 +57,9 @@
       </div>
     </div>
   </main>
-
+  <script type="module" src="data/checkout.js"></script>
   <script type="module" src="data/cart.js"></script>
+  
+  
 </body>
 </html>

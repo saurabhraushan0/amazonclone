@@ -1,7 +1,23 @@
 import { products } from "./products.js";
 import { cart } from "./cart1.js";
-let productHTML='';
-products.forEach((product)=>{
+import { cartquantity } from "./product-html.js";
+let searchedcart=[];
+function  searchstring(string){
+  let string1=string.toLowerCase();
+  products.forEach((item)=>{
+    let name=(item.name).toLowerCase();
+    let result=name.includes(string1)
+    if(result){
+      searchedcart.push(item);
+    }
+  })
+}
+
+document.querySelector('.search-button').addEventListener('click',()=>{
+  const value=document.querySelector('.search-box').value;
+  searchstring(value);
+  let productHTML='';
+  searchedcart.forEach((product)=>{
   productHTML+=`<div class="product-container">
   <div class="image-container"><img src="${product.image}" alt="">
   </div>
@@ -34,19 +50,6 @@ products.forEach((product)=>{
 </div>`;
 })
 document.querySelector('.main-grid').innerHTML=productHTML;
-export function cartquantity(){
-  let quantity=0;
-  cart.forEach((items)=>{
-  quantity+=items.quantity;
-  })
-  document.querySelector('.cart-quantity').innerHTML=quantity;
-}
-function saveToStorage(){
-  localStorage.setItem('cart',JSON.stringify(cart));
-}
-cartquantity();
-
-
 document.querySelectorAll('.add').forEach((button)=>{
   button.addEventListener('click',()=>{
     const id=button.dataset.productId;
@@ -69,12 +72,12 @@ document.querySelectorAll('.add').forEach((button)=>{
         }
       })
       
-      let priceCent=product_item.priceCents
-      console.log(priceCent);
+      let priceCent=product_item.priceCents;
       cart.push({id:id,quantity:1,image:`${product_item.image}`,name:`${product_item.name}`,price:priceCent,shippingCents:0});
+     
     }
-    saveToStorage();
+    localStorage.setItem('cart',JSON.stringify(cart));
     cartquantity();
   })
 })
-
+})
