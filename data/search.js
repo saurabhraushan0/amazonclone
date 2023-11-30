@@ -14,6 +14,7 @@ function  searchstring(string){
 }
 
 document.querySelector('.search-button').addEventListener('click',()=>{
+  searchedcart=[];
   const value=document.querySelector('.search-box').value;
   searchstring(value);
   let productHTML='';

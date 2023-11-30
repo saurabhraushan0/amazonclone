@@ -1,5 +1,5 @@
 import { cart ,checkoutquantity} from "./cart1.js";
-
+import { radioactivate } from "./checkout.js";
 
 export function ordersummary(){
   let itemcost=0;
@@ -53,7 +53,7 @@ function cartitems(){
       <div>
         <p class="product-name">${items.name}</p>
         <p class="product-price">$${(items.price/100).toFixed(2)}</p>
-        <p>Quantity:${items.quantity} <span class="update" data-pid=${items.id}>Update</span><input class="quantity-input"><span class="save-quantity-link" data-pid=${items.id}>Save</span><span class="delete" data-pid=${items.id}>Delete</span></p>
+        <p>Quantity:${items.quantity} <span class="update" data-pid=${items.id}>Update</span><input class="quantity-input js-quantity-input-${items.id}"><span class="save-quantity-link" data-pid=${items.id}>Save</span><span class="delete" data-pid=${items.id}>Delete</span></p>
       </div>
       <div class="delivery-options">
         <div class="choose-option">Choose a delivery option:</div>
@@ -83,10 +83,14 @@ function cartitems(){
     </div>
   </div>`
   })
-  document.querySelector('.cart-products').innerHTML=cartHtml;
-  document.querySelectorAll('.delete').forEach((link)=>{
+  document.querySelector('.cart-products').innerHTML=cartHtml;}
   
-    link.addEventListener('click',()=>{
+  cartitems();
+  checkoutquantity();
+ 
+  let deleted=()=>{
+    document.querySelectorAll('.delete').forEach((link)=>{
+      link.addEventListener('click',()=>{
       console.log('delete');
       let pid=link.dataset.pid;
       let cartitem;
@@ -107,27 +111,16 @@ function cartitems(){
       cart.splice(index,1);
       localStorage.setItem('cart',JSON.stringify(cart));  
       cartitems();
-      ordersummary();
       checkoutquantity();
+      radioactivate();
+      ordersummary();
+      deleted();
+      update();
     })
   })
-  document.querySelectorAll('.save-quantity-link').forEach((save)=>{
-    save.addEventListener('click',()=>{
-      const pid= save.dataset.pid;
-      const productcontainer=document.querySelector(`.js-product-info-${pid}`);
-      productcontainer.classList.remove('is-editing-quantity');
-      const value=Number(document.querySelector('.quantity-input').value);
-      let item;
-      cart.forEach((items)=>{
-        if(pid===items.id){item=items;}
-      })
-      item.quantity=value;
-      localStorage.setItem('cart',stringify(cart));
-      cartitems();
-      ordersummary();
-      checkoutquantity();
-    })
-  })
+  }
+  deleted();
+let update =()=>{
   document.querySelectorAll('.update').forEach((update)=>{
     update.addEventListener('click',()=>{
       const pid= update.dataset.pid;
@@ -135,14 +128,41 @@ function cartitems(){
       productcontainer.classList.add('is-editing-quantity');
     })
   })
-}
+} 
+update();
+
+let saved=()=>{
+  document.querySelectorAll('.save-quantity-link').forEach((save)=>{
+    save.addEventListener('click',()=>{
+      console.log('save');
+      const pid= save.dataset.pid;
+      const productcontainer=document.querySelector(`.js-product-info-${pid}`);
+      
+      const value=Number(document.querySelector(`.js-quantity-input-${pid}`).value);
+      let item;
+      cart.forEach((items)=>{
+        if(pid===items.id){item=items;}
+      })
+      item.quantity=value;
+      localStorage.setItem('cart',JSON.stringify(cart));
+      productcontainer.classList.remove('is-editing-quantity');
+      cartitems();
+      ordersummary();
+      radioactivate();
+      checkoutquantity();
+      deleted();
+      update();
+      saved();
+    })
+  })
+  }
+saved();
 
 
 
 
 
-ordersummary();
-cartitems();
+
 
 
 
